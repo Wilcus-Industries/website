@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+:root {
+    --background: #ffffff;
+    --foreground: #171717;
+}
+
+@theme inline {
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-geist-sans);
+    --font-mono: var(--font-geist-mono);
+    --font-playfair: var(--font-playfair);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #0a0a0a;
+        --foreground: #ededed;
+    }
+}
+
+body {
+    background: var(--background);
+    color: var(--foreground);
+}
+
+/* Hero film-grain drift. The noise texture is static (computed once by feTurbulence and
+   cached); only this transform animates, so it runs entirely on the GPU compositor — no
+   layout, no paint, no per-frame noise recompute. steps() gives the discrete film jitter. */
+@keyframes hero-grain-drift {
+    to {
+        transform: translate3d(6%, -7%, 0);
+    }
+}
+
+.hero-grain-animated {
+    will-change: transform;
+    animation: hero-grain-drift 0.45s steps(6) infinite alternate;
+}
+
+/* Orb drifts and breathes — transform + opacity only, so the cached blurred texture is
+   just moved/recomposited on the GPU (never re-blurred). */
+@keyframes hero-orb-float {
+    0% {
+        transform: translate3d(0, 0, 0);
+        opacity: 0.85;
+    }
+    50% {
+        transform: translate3d(-4%, -3%, 0);
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(3%, 2%, 0);
+        opacity: 0.9;
+    }
+}
+
+.hero-orb-float {
+    will-change: transform, opacity;
+    animation: hero-orb-float 11s ease-in-out infinite alternate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-grain-animated,
+    .hero-orb-float {
+        animation: none;
+    }
+}
