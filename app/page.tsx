@@ -3,21 +3,49 @@
 import HeroBackground from "@/app/components/HeroBackground";
 import WaitlistForm from "@/app/components/WaitlistForm";
 import {FaArrowDown} from "react-icons/fa6";
+import {useEffect, useRef} from "react";
 
 function AppTitle({ name, url }: {
     name: string,
     url: string
 }) {
     return (
-        <div className={`hover:bg-foreground hover:text-background rounded px-2
-                         transition-colors duration-300 cursor-pointer w-fit`}
-             onClick={() => open(url)}>
-            <h1 className={"xl:text-6xl md:text-4xl text-3xl font-thin"}>{name}</h1>
-        </div>
+        <a href={url} target={"_blank"} rel={"noopener noreferrer"}
+           className={`hover:bg-foreground hover:text-background rounded px-2
+                         transition-colors duration-300 cursor-pointer w-fit block`}>
+            <h2 className={"xl:text-6xl md:text-4xl text-3xl font-thin"}>{name}</h2>
+        </a>
     )
 }
 
 export default function Home() {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        video.playbackRate = 1;
+
+        // The clip is a below-the-fold decorative background. Defer its load + playback until
+        // it scrolls into view so it never competes with the hero for bandwidth / LCP. With
+        // preload="none" the first play() is also what triggers the download.
+        const io = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        void video.play().catch(() => {});
+                    } else {
+                        video.pause();
+                    }
+                }
+            },
+            { threshold: 0.1 },
+        );
+        io.observe(video);
+        return () => io.disconnect();
+    }, []);
+
     return (
         <main className={"relative min-h-screen flex flex-col"}>
             <div className={"relative flex flex-col h-screen border-b-[0.5px] "}>
@@ -25,8 +53,8 @@ export default function Home() {
                 <div className={"relative z-10 flex flex-col md:flex-row p-5 gap-3"}>
                     <div className={"flex flex-col items-start shrink-0"}>
                         <small className={"md:text-sm text-xs"}>
-                            A partnership between <b><a target={"_blank"} href={"https://lucasmarta.com"}>Lucas Marta</a></b> and <b>
-                            <a target={"_blank"} href={"https://www.williamchastain.com"}>William Chastain</a></b>
+                            A partnership between <b><a target={"_blank"} rel={"noopener noreferrer"} href={"https://lucasmarta.com"}>Lucas Marta</a></b> and <b>
+                            <a target={"_blank"} rel={"noopener noreferrer"} href={"https://www.williamchastain.com"}>William Chastain</a></b>
                         </small>
                         <h1 className={"xl:text-6xl md:text-4xl text-3xl font-bold font-sans"}>WILCUS INDUSTRIES</h1>
                         {/*<SocialLink icon={<FaGithub />} />*/}
@@ -43,13 +71,13 @@ export default function Home() {
                     </div>
                 </div>
                 <div className={"relative z-50 flex-1 flex justify-center items-center flex-col gap-5"}>
-                    <h1 className={"xl:text-8xl md:text-6xl text-4xl font-thin font-playfair text-center md:w-200 sm:w-100 w-90 h-fit py-5"}>
+                    <h2 className={"xl:text-8xl md:text-6xl text-4xl font-thin font-playfair text-center md:w-200 sm:w-100 w-90 h-fit py-5"}>
                         Smart tools and agentic solutions.
-                    </h1>
+                    </h2>
                     <div className={"bg-foreground text-background w-75 h-20 flex items-center justify-center flex-col gap-2"}>
-                        <h1 className={"text-4xl font-mono"}>
+                        <span className={"text-4xl font-mono"}>
                             LEARN MORE
-                        </h1>
+                        </span>
                         <FaArrowDown />
                     </div>
                 </div>
@@ -58,10 +86,10 @@ export default function Home() {
                 <div className={"flex xl:flex-row flex-col gap-5 border-b-[0.5px]"}>
                     <div className={"md:w-150 xl:ml-5"}>
                         <small className={"font-mono"}>HOME OF THE WORLDS FIRST</small>
-                        <h1 className={"text-5xl font-bold"}>FULLY-AGENTIC SOFTWARE ENGINEERING TEAM.</h1>
+                        <h2 className={"text-5xl font-bold"}>FULLY-AGENTIC SOFTWARE ENGINEERING TEAM.</h2>
                     </div>
                     <div className={"flex-1 flex flex-row items-center"}>
-                        <h1 className={"font-thin font-mono xl:text-9xl text-[11vw] whitespace-nowrap leading-none"}>THE COLLECTIVE.</h1>
+                        <span aria-hidden={"true"} className={"font-thin font-mono xl:text-9xl text-[11vw] whitespace-nowrap leading-none"}>THE COLLECTIVE.</span>
                     </div>
                 </div>
                 <div className={"relative flex-1 overflow-hidden"}>
@@ -74,10 +102,12 @@ export default function Home() {
                         </div>
                     </div>
                     <video
+                        ref={videoRef}
                         className={"absolute inset-0 w-full h-full object-cover"}
                         src={"/collective.mp4"}
-                        ref={(el) => { if (el) el.playbackRate = 0.8; }}
-                        autoPlay
+                        poster={"/collective-poster.jpg"}
+                        preload={"none"}
+                        aria-hidden={"true"}
                         loop
                         muted
                         playsInline
