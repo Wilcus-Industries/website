@@ -2,7 +2,7 @@
 
 import HeroBackground from "@/app/components/HeroBackground";
 import WaitlistForm from "@/app/components/WaitlistForm";
-import {FaArrowDown} from "react-icons/fa6";
+import {FaArrowDown, FaGithub} from "react-icons/fa6";
 import {useEffect, useRef} from "react";
 
 function AppTitle({ name, url }: {
@@ -20,19 +20,23 @@ function AppTitle({ name, url }: {
 
 export default function Home() {
     const videoRef = useRef<HTMLVideoElement>(null);
+    const liminalVideoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
-        const video = videoRef.current;
-        if (!video) return;
+        const videos = [videoRef.current, liminalVideoRef.current].filter(
+            (v): v is HTMLVideoElement => v !== null,
+        );
+        if (videos.length === 0) return;
 
-        video.playbackRate = 1;
+        for (const video of videos) video.playbackRate = 1;
 
-        // The clip is a below-the-fold decorative background. Defer its load + playback until
-        // it scrolls into view so it never competes with the hero for bandwidth / LCP. With
+        // The clips are below-the-fold decorative backgrounds. Defer their load + playback until
+        // they scroll into view so they never compete with the hero for bandwidth / LCP. With
         // preload="none" the first play() is also what triggers the download.
         const io = new IntersectionObserver(
             (entries) => {
                 for (const entry of entries) {
+                    const video = entry.target as HTMLVideoElement;
                     if (entry.isIntersecting) {
                         void video.play().catch(() => {});
                     } else {
@@ -42,7 +46,7 @@ export default function Home() {
             },
             { threshold: 0.1 },
         );
-        io.observe(video);
+        for (const video of videos) io.observe(video);
         return () => io.disconnect();
     }, []);
 
@@ -113,7 +117,46 @@ export default function Home() {
                         playsInline
                     />
                 </div>
-
+            </div>
+            <div className={"h-screen flex flex-col"}>
+                <div className={"flex xl:flex-row flex-col gap-5 border-y-[0.5px]"}>
+                    <div className={"md:w-150 xl:ml-5"}>
+                        <small className={"font-mono"}>MCP READY, SKILLS READY,</small>
+                        <h2 className={"text-5xl font-bold"}>AGENT-READY GAME ENGINE.</h2>
+                    </div>
+                    <div className={"flex-1 flex flex-row items-center"}>
+                        <span aria-hidden={"true"} className={"font-thin font-mono xl:text-9xl text-[20vw] whitespace-nowrap leading-none"}>LIMINAL.</span>
+                    </div>
+                </div>
+                <div className={"relative flex-1 overflow-hidden"}>
+                    <div className={"bg-background relative z-50 w-100 h-40 mt-5 p-3 flex gap-3 flex-col items-center m-auto"}>
+                        <p className={"font-sans text-center"}>
+                            An advanced game engine with a
+                            built in <b>MCP server</b>, <b>skill</b>, and <b>LLM
+                            inference</b> for speedy development, game features, and more.
+                        </p>
+                        <a className={"cursor-pointer "}
+                           href={"https://github.com/Wilcus-Industries/liminal"}
+                           target={"_blank"}>
+                            <p className={`text-background bg-foreground p-2 font-mono text-center flex 
+                                           items-center gap-3 hover:bg-background hover:text-foreground 
+                                           transition-colors duration-300 border-[0.5px]`}>
+                                CHECK IT OUT ON <FaGithub />
+                            </p>
+                        </a>
+                    </div>
+                    <video
+                        ref={liminalVideoRef}
+                        className={"absolute inset-0 w-full h-full object-cover"}
+                        src={"/liminal.mp4"}
+                        poster={"/liminal-poster.jpg"}
+                        preload={"none"}
+                        aria-hidden={"true"}
+                        loop
+                        muted
+                        playsInline
+                    />
+                </div>
             </div>
         </main>
     );
