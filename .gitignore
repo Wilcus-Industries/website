@@ -37,7 +37,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-# waitlist submissions (contains PII — do not commit)
+# waitlist submissions (contains PII - do not commit)
 /data
 
 # typescript

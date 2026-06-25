@@ -15,7 +15,7 @@ export default function JsonLd() {
                 url: siteUrl,
                 logo: `${siteUrl}/logo.png`,
                 description:
-                    "Wilcus Industries builds smart tools and agentic solutions — home of The Collective, the world's first fully-agentic software engineering team.",
+                    "Wilcus Industries builds smart tools and agentic solutions - home of The Collective, the world's first fully-agentic software engineering team.",
                 founder: [
                     {
                         "@type": "Person",

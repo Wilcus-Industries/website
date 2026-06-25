@@ -149,7 +149,7 @@ export default function WaitlistForm() {
                 />
             </Field>
 
-            {/* Persistently mounted live region — assistive tech only announces
+            {/* Persistently mounted live region - assistive tech only announces
                 changes to a region that already exists in the DOM. */}
             <p
                 role={"status"}

@@ -5,7 +5,7 @@ export default function manifest(): MetadataRoute.Manifest {
         name: "Wilcus Industries",
         short_name: "Wilcus",
         description:
-            "Smart tools and agentic solutions — home of The Collective, the world's first fully-agentic software engineering team.",
+            "Smart tools and agentic solutions - home of The Collective, the world's first fully-agentic software engineering team.",
         start_url: "/",
         display: "standalone",
         background_color: "#0a0a0a",

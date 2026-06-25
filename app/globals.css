@@ -11,6 +11,13 @@
     --font-sans: var(--font-geist-sans);
     --font-mono: var(--font-geist-mono);
     --font-playfair: var(--font-playfair);
+    --font-redaction: var(--font-redaction);
+    --font-redaction-10: var(--font-redaction-10);
+    --font-redaction-20: var(--font-redaction-20);
+    --font-redaction-35: var(--font-redaction-35);
+    --font-redaction-50: var(--font-redaction-50);
+    --font-redaction-70: var(--font-redaction-70);
+    --font-redaction-100: var(--font-redaction-100);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,7 +33,7 @@ body {
 }
 
 /* Hero film-grain drift. The noise texture is static (computed once by feTurbulence and
-   cached); only this transform animates, so it runs entirely on the GPU compositor — no
+   cached); only this transform animates, so it runs entirely on the GPU compositor - no
    layout, no paint, no per-frame noise recompute. steps() gives the discrete film jitter. */
 @keyframes hero-grain-drift {
     to {
@@ -39,7 +46,7 @@ body {
     animation: hero-grain-drift 0.45s steps(6) infinite alternate;
 }
 
-/* Orb drifts and breathes — transform + opacity only, so the cached blurred texture is
+/* Orb drifts and breathes - transform + opacity only, so the cached blurred texture is
    just moved/recomposited on the GPU (never re-blurred). */
 @keyframes hero-orb-float {
     0% {

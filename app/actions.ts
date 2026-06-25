@@ -69,7 +69,7 @@ export async function joinWaitlist(
 
     try {
         await ensureSchema();
-        // Tagged-template values are sent as bound parameters — injection-safe.
+        // Tagged-template values are sent as bound parameters - injection-safe.
         await sql`
             INSERT INTO waitlist (name, email, organization, use_case)
             VALUES (${name}, ${email}, ${organization || null}, ${useCase})

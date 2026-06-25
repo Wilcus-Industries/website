@@ -26,7 +26,7 @@ export type HeroBackgroundProps = {
  * Deep-black hero background with a single off-center, ring-shaped electric-blue → cyan
  * glow, heavily grained so the gradient reads like film stock rather than smooth CSS.
  *
- * Full-bleed, absolutely positioned, non-interactive — drop it behind hero content.
+ * Full-bleed, absolutely positioned, non-interactive - drop it behind hero content.
  */
 export default function HeroBackground({
                                            glowPosition,
@@ -46,7 +46,7 @@ export default function HeroBackground({
     // Stable per-instance id so multiple backgrounds on one page don't share filters.
     const filterId = `hero-grain-${right}-${top}-${size}`.replace(/[^a-z0-9-]/gi, "");
 
-    // Full solid sphere — bright core → blue → indigo → transparent, no dark center punch.
+    // Full solid sphere - bright core → blue → indigo → transparent, no dark center punch.
     // `hot` scales the white-cyan core so we can make one sphere bluer, the other cyaner.
     const sphere = (
         diameter: number,
@@ -121,7 +121,7 @@ export default function HeroBackground({
 
             {/* Film grain. feTurbulence fractalNoise, overlay-blended: visible on color, ~gone on black.
                 Noise is static (rasterized once, cached); motion comes from a GPU transform drift
-                applied by the .hero-grain-animated class — never recompute the noise per frame. */}
+                applied by the .hero-grain-animated class - never recompute the noise per frame. */}
             <svg
                 style={grain}
                 className={animated ? "hero-grain-animated" : undefined}

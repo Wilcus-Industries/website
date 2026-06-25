@@ -1,7 +1,7 @@
 "use client";
 
-import HeroBackground from "@/app/components/HeroBackground";
-import WaitlistForm from "@/app/components/WaitlistForm";
+import HeroBackground from "@/components/heroBackground";
+import WaitlistForm from "@/components/waitlistForm";
 import {FaArrowDown, FaGithub} from "react-icons/fa6";
 import {useEffect, useRef} from "react";
 
