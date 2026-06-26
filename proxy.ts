@@ -24,8 +24,11 @@ export function proxy(request: NextRequest) {
         return NextResponse.next();
     }
 
-    // Any other host: collapse /liminal onto the canonical subdomain to avoid duplicate content.
-    if (pathname === "/liminal" || pathname.startsWith("/liminal/")) {
+    // Local dev / preview hosts have no subdomain, so serve /liminal directly instead of redirecting.
+    const isLocalHost = host.startsWith("localhost") || host.startsWith("127.0.0.1");
+
+    // Any other production host: collapse /liminal onto the canonical subdomain to avoid duplicate content.
+    if (!isLocalHost && (pathname === "/liminal" || pathname.startsWith("/liminal/"))) {
         return NextResponse.redirect(`https://${LIMINAL_HOST}`, 308);
     }
 

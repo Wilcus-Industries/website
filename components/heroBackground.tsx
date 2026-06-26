@@ -18,6 +18,12 @@ export type HeroBackgroundProps = {
     animated?: boolean;
     /** Diameter of the orb in pixels. Default 820. */
     size?: number;
+    /**
+     * Base orb color as an "r, g, b" string (e.g. "255, 255, 255" for white).
+     * When set, the whole orb is built from tints of this color. Omit for the
+     * default electric-blue → cyan ramp.
+     */
+    color?: string;
     className?: string;
     style?: CSSProperties;
 };
@@ -34,6 +40,7 @@ export default function HeroBackground({
                                            grainAmount = 1,
                                            animated = true,
                                            size = 2500,
+                                           color,
                                            className,
                                            style,
                                        }: HeroBackgroundProps) {
@@ -55,7 +62,15 @@ export default function HeroBackground({
         center: string,
         hot: number,
     ) => {
-        const bg = `radial-gradient(circle at ${center},
+        const bg = color
+            ? `radial-gradient(circle at ${center},
+      rgba(${color}, ${0.95 * hot * k}) 0%,
+      rgba(${color}, ${0.85 * hot * k}) 12%,
+      rgba(${color}, ${0.7 * k}) 24%,
+      rgba(${color}, ${0.7 * k}) 44%,
+      rgba(${color}, ${0.45 * k}) 66%,
+      rgba(${color}, 0) 82%)`
+            : `radial-gradient(circle at ${center},
       rgba(190, 240, 255, ${0.95 * hot * k}) 0%,
       rgba(120, 226, 255, ${0.85 * hot * k}) 12%,
       rgba(90, 214, 255, ${0.7 * k}) 24%,
