@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { siteUrl } from "@/app/lib/site";
+import { siteUrl, liminalUrl } from "@/app/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
@@ -8,6 +8,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             changeFrequency: "monthly",
             priority: 1,
+        },
+        {
+            url: liminalUrl,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
         },
     ];
 }

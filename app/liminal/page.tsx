@@ -2,12 +2,66 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import React from "react";
 import {FaArrowDown, FaGithub} from "react-icons/fa6";
-
-const liminalUrl = "https://liminal.wilcus.com";
+import { liminalUrl, siteUrl } from "@/app/lib/site";
 
 export const metadata: Metadata = {
     metadataBase: new URL(liminalUrl),
+    title: { absolute: "LIMINAL - The game engine for agents" },
+    description:
+        "Liminal is the game engine for agents - a full Lua IDE and Unity-style scene editor with a built-in MCP server and ready-made skill file, so your agent turns an intent into a running game. Free download.",
+    applicationName: "Liminal",
+    keywords: [
+        "Liminal",
+        "game engine for agents",
+        "agentic game engine",
+        "MCP game engine",
+        "Lua game engine",
+        "AI game development",
+        "MCP server",
+        "Unity-style editor",
+        "Wilcus Industries",
+    ],
     alternates: { canonical: liminalUrl },
+    openGraph: {
+        type: "website",
+        siteName: "Wilcus Industries",
+        title: "LIMINAL - The game engine for agents",
+        description:
+            "A full Lua IDE and Unity-style editor with a built-in MCP server and ready-made skill file. Your agent reads one, speaks the other, and an intent becomes a running game.",
+        url: liminalUrl,
+        locale: "en_US",
+        // og:image tags are injected automatically from app/liminal/opengraph-image.tsx
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "LIMINAL - The game engine for agents",
+        description:
+            "The game engine for agents - built-in MCP server, ready-made skill file, full Lua IDE.",
+        // twitter:image is injected automatically from app/liminal/twitter-image.tsx
+    },
+};
+
+// SoftwareApplication structured data for the Liminal product. Links its publisher
+// to the global Organization node emitted in the root layout (components/seo/jsonLd.tsx)
+// via the shared @id, so the two graphs stitch together for rich results.
+const liminalJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Liminal",
+    url: liminalUrl,
+    applicationCategory: "DeveloperApplication",
+    applicationSubCategory: "GameApplication",
+    operatingSystem: "Windows, macOS, Linux",
+    description:
+        "Liminal is the game engine for agents - a full Lua IDE and Unity-style scene editor with a built-in MCP server and ready-made skill file, so your agent turns an intent into a running game.",
+    downloadUrl: "https://github.com/Wilcus-Industries/liminal/releases/latest",
+    offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+    },
+    publisher: { "@id": `${siteUrl}/#organization` },
+    author: { "@id": `${siteUrl}/#organization` },
 };
 
 function LinkButton({link, children} : {
@@ -54,6 +108,10 @@ const featureGroups = [
 export default function Liminal() {
     return (
         <main className={"flex flex-col min-h-screen relative"}>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(liminalJsonLd) }}
+            />
             <div className={"relative h-screen"}>
                 <div className={"flex flex-1 flex-col justify-start items-center absolute bottom-[40vh] w-full z-50"}>
                     <div className={"text-center flex flex-col items-center gap-1"}>

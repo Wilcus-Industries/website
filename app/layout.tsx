@@ -112,7 +112,7 @@ export const metadata: Metadata = {
         template: "%s | Wilcus Industries",
     },
     description:
-        "Wilcus Industries builds smart tools and agentic solutions - home of The Collective, the world's first fully-agentic software engineering team. Join the waitlist.",
+        "Wilcus Industries builds smart tools and agentic solutions - home of The Collective, the world's first fully-agentic software engineering team, and Liminal, the agent-ready game engine. Join the waitlist.",
     applicationName: "Wilcus Industries",
     keywords: [
         "Wilcus Industries",
@@ -123,7 +123,9 @@ export const metadata: Metadata = {
         "AI development team",
         "autonomous software engineering",
         "Liminal",
-        "Sonderfi",
+        "game engine for agents",
+        "MCP game engine",
+        "Lua game engine",
     ],
     authors: [
         { name: "Lucas Marta", url: "https://lucasmarta.com" },
@@ -139,7 +141,7 @@ export const metadata: Metadata = {
         siteName: "Wilcus Industries",
         title: "Wilcus Industries - Smart tools and agentic solutions",
         description:
-            "Home of The Collective, the world's first fully-agentic software engineering team. Smart tools and agentic solutions.",
+            "Home of The Collective, the world's first fully-agentic software engineering team, and Liminal, the agent-ready game engine.",
         url: siteUrl,
         locale: "en_US",
         // og:image tags are injected automatically from app/opengraph-image.tsx
@@ -148,7 +150,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Wilcus Industries - Smart tools and agentic solutions",
         description:
-            "Home of The Collective, the world's first fully-agentic software engineering team.",
+            "Home of The Collective, the world's first fully-agentic software engineering team, and Liminal, the agent-ready game engine.",
         // twitter:image is injected automatically from app/twitter-image.tsx
     },
     robots: {

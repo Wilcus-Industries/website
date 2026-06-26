@@ -68,9 +68,7 @@ export default function Home() {
                             <AppTitle name={"THE COLLECTIVE"}
                                       url={"https://github.com/Wilcus-Industries/test-for-swe"} />
                             <AppTitle name={"LIMINAL"}
-                                      url={"https://github.com/Wilcus-Industries/liminal"} />
-                            <AppTitle name={"SONDERFI"}
-                                      url={"https://sonderfi.net"} />
+                                      url={"/liminal"} />
                         </div>
                     </div>
                 </div>
